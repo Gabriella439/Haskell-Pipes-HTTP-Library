@@ -6,8 +6,8 @@
 -- > import qualified Pipes.ByteString as PB
 -- >
 -- > main = do
--- >     req <- parseUrl "http://www.google.com"
--- >     withManager defaultManagerSettings $ \m ->
+-- >     req <- parseUrl "https://www.example.com"
+-- >     withManager tlsManagerSettings $ \m ->
 -- >         withHTTP req m $ \resp ->
 -- >             runEffect $ responseBody resp >-> PB.stdout
 --
@@ -21,12 +21,12 @@
 -- > import qualified Pipes.ByteString as PB
 -- >
 -- > main = do
--- >     req <- parseUrl "http://www.example.com"
+-- >     req <- parseUrl "https://www.example.com"
 -- >     let req' = req
 -- >             { method = "POST"
 -- >             , requestBody = stream PB.stdin
 -- >             }
--- >     withManager defaultManagerSettings $ \m ->
+-- >     withManager tlsManagerSettings $ \m ->
 -- >         withHTTP req' m $ \resp ->
 -- >             runEffect $ responseBody resp >-> PB.stdout
 
@@ -35,6 +35,7 @@ module Pipes.HTTP (
     -- * http-client
     -- $httpclient
       module Network.HTTP.Client
+    , module Network.HTTP.Client.TLS
 
     -- * Pipes Interface
     , withHTTP
@@ -49,10 +50,13 @@ import qualified Data.ByteString as B
 import Data.Int (Int64)
 import Data.IORef (newIORef, readIORef, writeIORef)
 import Network.HTTP.Client
+import Network.HTTP.Client.TLS
 import Pipes
 
 {- $httpclient
-    This module is a thin @pipes@ wrapper around the @http-client@ library.
+    This module is a thin @pipes@ wrapper around the @http-client@ and
+    @http-client-tls@ libraries.
+
     Read the documentation in the "Network.HTTP.Client" module of the
     @http-client@ library to learn about how to:
 
@@ -63,6 +67,8 @@ import Pipes
     * handle exceptions, and:
 
     * manage cookies.
+
+    @http-client-tls@ provides support for TLS connections (i.e. HTTPS).
 -}
 
 -- | Send an HTTP 'Request' and wait for an HTTP 'Response'
