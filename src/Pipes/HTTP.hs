@@ -3,7 +3,7 @@
 --
 -- > import Pipes
 -- > import Pipes.HTTP
--- > import qualified Pipes.ByteString as PB
+-- > import qualified Pipes.ByteString as PB  -- from `pipes-bytestring`
 -- >
 -- > main = do
 -- >     req <- parseUrl "https://www.example.com"
@@ -29,6 +29,9 @@
 -- >     withManager tlsManagerSettings $ \m ->
 -- >         withHTTP req' m $ \resp ->
 -- >             runEffect $ responseBody resp >-> PB.stdout
+--
+-- For non-streaming request bodies, study out the 'RequestBody' type, which
+-- also accepts strict \/ lazy bytestrings or builders.
 
 
 module Pipes.HTTP (
