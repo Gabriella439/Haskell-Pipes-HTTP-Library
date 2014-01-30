@@ -30,8 +30,8 @@
 -- >         withHTTP req' m $ \resp ->
 -- >             runEffect $ responseBody resp >-> PB.stdout
 --
--- For non-streaming request bodies, study out the 'RequestBody' type, which
--- also accepts strict \/ lazy bytestrings or builders.
+-- For non-streaming request bodies, study the 'RequestBody' type, which also
+-- accepts strict \/ lazy bytestrings or builders.
 
 
 module Pipes.HTTP (
