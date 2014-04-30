@@ -7,7 +7,7 @@ License-File: LICENSE
 Copyright: 2014 Gabriel Gonzalez
 Author: Gabriel Gonzalez
 Maintainer: Gabriel439@gmail.com
-Bug-Reports: https://github.com/Gabriel439/Haskell-Pipes-HTTP-Client-Library/issues
+Bug-Reports: https://github.com/Gabriel439/Haskell-Pipes-HTTP-Library/issues
 Synopsis: HTTP client with pipes interface
 Description: @pipes-http@ is a @pipes@ wrapper around the @http-client@ library
 Category: Pipes, Web
