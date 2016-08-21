@@ -25,4 +25,4 @@ Library
         http-client      >= 0.2     && < 0.6 ,
         http-client-tls                < 0.4
     Exposed-Modules: Pipes.HTTP
-    GHC-Options: -O2 -Wall
+    GHC-Options: -Wall
