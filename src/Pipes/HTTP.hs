@@ -6,10 +6,12 @@
 -- > import qualified Pipes.ByteString as PB  -- from `pipes-bytestring`
 -- >
 -- > main = do
--- >     req <- parseUrl "https://www.example.com"
--- >     withManager tlsManagerSettings $ \m ->
--- >         withHTTP req m $ \resp ->
--- >             runEffect $ responseBody resp >-> PB.stdout
+-- >     req <- parseUrlThrow "https://www.example.com"
+-- > 
+-- >     manager <- withManager tlsManagerSettings
+-- > 
+-- >     withHTTP req manager $ \resp ->
+-- >         runEffect $ responseBody resp >-> PB.stdout
 --
 --   Here is an example POST request that also streams the request body from
 --   standard input:
@@ -21,14 +23,17 @@
 -- > import qualified Pipes.ByteString as PB
 -- >
 -- > main = do
--- >     req <- parseUrl "https://www.example.com"
+-- >     req <- parseUrlThrow "https://www.example.com"
+-- > 
 -- >     let req' = req
 -- >             { method = "POST"
 -- >             , requestBody = stream PB.stdin
 -- >             }
--- >     withManager tlsManagerSettings $ \m ->
--- >         withHTTP req' m $ \resp ->
--- >             runEffect $ responseBody resp >-> PB.stdout
+-- > 
+-- >     manager <- newManager tlsManagerSettings
+-- > 
+-- >     withHTTP req' manager $ \resp ->
+-- >         runEffect $ responseBody resp >-> PB.stdout
 --
 -- For non-streaming request bodies, study the 'RequestBody' type, which also
 -- accepts strict \/ lazy bytestrings or builders.
